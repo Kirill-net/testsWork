@@ -15,7 +15,7 @@ class TestYandexDiskCreateFolder:
                                 params=self.params,
                                 headers=self.headers)
 
-    def test_create_folder_201_200(self):
+    def test_create_folder_201_200_409(self):
         response = requests.put('https://cloud-api.yandex.net/v1/disk/resources',
                                 params=self.params,
                                 headers=self.headers)
@@ -25,3 +25,14 @@ class TestYandexDiskCreateFolder:
                                 params=self.params,
                                 headers=self.headers)
         assert response.status_code == 200
+
+        response = requests.put('https://cloud-api.yandex.net/v1/disk/resources',
+                                params=self.params,
+                                headers=self.headers)
+        assert response.status_code == 409
+
+    def test_create_folder_404(self):
+        response = requests.get('https://cloud-api.yandex.net/v1/disk/resources',
+                                params=self.params,
+                                headers=self.headers)
+        assert response.status_code == 404
